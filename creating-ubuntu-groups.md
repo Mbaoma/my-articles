@@ -86,7 +86,7 @@ sudo adduser solomon group_b
 ```
 
 ### Grant permissions to users
-We first create three files,to which we will grant certain permissions to users.
+We first create three files, and specify the permissions they will have.
 Permissions are:
 execute(x): this gives a user or group of users the permission to execute a script(file).
 
@@ -120,15 +120,45 @@ We save our files by pressing ```Ctrl + O```, then exit the editor with ```Ctrl 
 
 We give group_a users the permission to execute, write and read file_a while they can only read file_b and vice-versa.
 
-Run the following:
+We assign file permissions to the groups:
+```
+chmod g+wrx file_a
+chmod g+wrx file_b
 ```
 
+We give read permission to 'other' users:
+```
+chmod o+r file_a
+chmod o+r file_b
+```
 
+We check our files and the permissions they have:
+```
+ls -l
+```
 
+Expected output:
+![image](https://user-images.githubusercontent.com/49791498/107143218-1bc45680-6934-11eb-88e9-0f95276e17fa.png)
+The above image shows us the permissions granted to our files
+```-``` means we are dealing with files.
 
+```rw-``` means the owner (azureuser) has read and write permissions to the file.
 
+```rwx``` means the group has read, write and execute permissions to the file.
 
-To end a connection, run
+```r--``` means others have only read access to the file. 
+
+The column which contains ```1``, indicates the number of files in the directory(in our case, we are dealing with only one file)
+
+The column which contains ```azureuser``` shows the user's name while ```group_a``` shows the name of the user or group that owns the file.
+
+The next columns contain the size of the file, date and time the file was last modified and the name of the available files.
+
+Tada!!, our job here is done.
+
+To end our connection with our VM, run
 ```
 exit
 ```
+
+Remember to stop your VM from the azure portal!
