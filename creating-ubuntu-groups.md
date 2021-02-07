@@ -24,3 +24,9 @@ If successful, the username on our terminal changes to 'azureuser@VMname'*
 
 ### Creating Groups
 For this artcle's sake, we limit ourselves to two groups namely, ```group_a``` and ```group_b```.
+
+
+To end a connection, run
+```
+exit
+```
