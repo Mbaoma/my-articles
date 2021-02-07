@@ -25,6 +25,108 @@ If successful, the username on our terminal changes to 'azureuser@VMname'*
 ### Creating Groups
 For this artcle's sake, we limit ourselves to two groups namely, ```group_a``` and ```group_b```.
 
+We create our groups by running:
+```
+sudo addgroup groupname
+```
+Example:
+```
+sudo addgroup group_a
+sudo addgroup group_b
+```
+
+We run the following command to confirm if our groups are created:
+```
+tail /etc/group
+```
+
+To delete a group, run the following command:
+```
+sudo delgroup groupname
+```
+
+### Creating Users
+For this artcle's sake, we limit ourselves to four users namely, ```Mary```, ```Paul```, ```Abel``` and ```Solomon```.
+
+We create our users by running:
+```
+sudo adduser username
+```
+Example:
+```
+sudo adduser mary
+sudo adduser paul
+sudo adduser abel
+sudo adduser solomon
+```
+*You will be asked to enter a new password for the user*
+
+We run the following command to confirm if our users are created:
+```
+cut -d: -f1 /etc/passwd
+```
+
+To delete a user, run the following command:
+```
+sudo deluser username
+```
+
+### Adding Users to our Groups
+Run the following command:
+```
+sudo adduser username groupname
+```
+
+Example:
+```
+sudo adduser mary group_a
+sudo adduser paul group_b
+sudo adduser abel group_a
+sudo adduser solomon group_b
+```
+
+### Grant permissions to users
+We first create three files,to which we will grant certain permissions to users.
+Permissions are:
+execute(x): this gives a user or group of users the permission to execute a script(file).
+
+read(r): this gives a user or group of users the permission to read a file.
+
+write(w): this gives a user or group of users the permission to write (or edit) a file.
+
+We run the following command to create our files:
+```
+touch filename
+```
+
+Example:
+```
+touch file_a
+touch file_b
+```
+
+*To edit a file in the terminal, we use the nano text editor by running:*
+```
+nano filename
+```
+
+Example:
+```
+nano file_a
+nano file_b
+```
+
+We save our files by pressing ```Ctrl + O```, then exit the editor with ```Ctrl + X```
+
+We give group_a users the permission to execute, write and read file_a while they can only read file_b and vice-versa.
+
+Run the following:
+```
+
+
+
+
+
 
 To end a connection, run
 ```
