@@ -150,7 +150,7 @@ The above image shows us the permissions granted to our files
 
 The column which contains ```1``, indicates the number of files in the directory(in our case, we are dealing with only one file)
 
-The column which contains ```azureuser``` shows the user's name while ```group_a``` shows the name of the user or group that owns the file.
+The column which contains ```azureuser``` shows the users while ```group_a``` shows the name of the group name that owns the file.
 
 The next columns contain the size of the file, date and time the file was last modified and the name of the available files.
 
