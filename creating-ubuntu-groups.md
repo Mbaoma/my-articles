@@ -190,7 +190,7 @@ nano file_b
 ```
 *This command opens up the file in the nano editor*.
 
-We write some texts on the file, but are unable to save the new changes to the file because as a member of group_a, we have no access to write to the file labeled ```file_b```
+We write some texts on the file, but are unable to save the new changes to the file because as a member of ```group_a```, we have no access to write to the file labeled ```file_b```
 ![image](https://user-images.githubusercontent.com/49791498/107800946-bae7b480-6d5f-11eb-975e-32610613f015.png)
 
 There you have it folks!
