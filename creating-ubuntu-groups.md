@@ -1,6 +1,8 @@
-## User, Groups and Permissions in Linux
+## Managing Users, Groups and Permissions in Linux
 
-Hi, in today's article, we will be walking through the steps involved in setting up an Ubuntu virtual machine, creating users and group and assigning specific permissions to the different groups.
+Hi, in today's article, we will be walking through the steps involved in setting up an Ubuntu virtual machine, creating users and groups and assigning specific permissions to the different groups.
+
+[Users and groups](https://wiki.archlinux.org/index.php/users_and_groups) are created to control access to the system's files, directories etc. 
 
 We assume you have provisioned a Virtual machine, if not, you can [follow this guide](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal) to creating a VM (Virtual Machine) in Azure .
 
@@ -23,6 +25,7 @@ ssh -i <private key path> azureuser@40.75.89.163
 If successful, the username on our terminal changes to 'azureuser@VMname'*
 
 ### Creating Groups
+
 For this artcle's sake, we limit ourselves to two groups namely, ```group_a``` and ```group_b```.
 
 We create our groups by running:
@@ -46,7 +49,8 @@ sudo delgroup groupname
 ```
 
 ### Creating Users
-For this artcle's sake, we limit ourselves to four users namely, ```Mary```, ```Paul```, ```Abel``` and ```Solomon```.
+
+For this artcle's sake, we limit ourselves to four users namely, ```May```, ```Paul```, ```Abel``` and ```Solomon```.
 
 We create our users by running:
 ```
@@ -54,7 +58,7 @@ sudo adduser username
 ```
 Example:
 ```
-sudo adduser mary
+sudo adduser may
 sudo adduser paul
 sudo adduser abel
 sudo adduser solomon
@@ -72,6 +76,7 @@ sudo deluser username
 ```
 
 ### Adding Users to our Groups
+
 Run the following command:
 ```
 sudo adduser username groupname
@@ -79,13 +84,14 @@ sudo adduser username groupname
 
 Example:
 ```
-sudo adduser mary group_a
+sudo adduser may group_a
 sudo adduser paul group_b
 sudo adduser abel group_a
 sudo adduser solomon group_b
 ```
 
-### Grant permissions to users
+### Granting permissions to users
+
 We first create three files, and specify the permissions they will have.
 Permissions are:
 execute(x): this gives a user or group of users the permission to execute a script(file).
@@ -116,7 +122,7 @@ nano file_a
 nano file_b
 ```
 
-We save our files by pressing ```Ctrl + O```, then exit the editor with ```Ctrl + X```
+We save our files by pressing ```Ctrl + O```, ```Enter``` and then exit the editor with ```Ctrl + X```
 
 We give group_a users the permission to execute, write and read file_a while they can only read file_b and vice-versa.
 
@@ -154,11 +160,38 @@ The column which contains ```azureuser``` shows the users while ```group_a``` sh
 
 The next columns contain the size of the file, date and time the file was last modified and the name of the available files.
 
-Tada!!, our job here is done.
+Tada!! our job here is done.
 
 To end our connection with our VM, run
 ```
 exit
 ```
 
-Remember to stop your VM from the azure portal!
+Remember to stop and then delete your VM from the azure portal!
+
+## Testing time!!
+We login as one of the users we created and try to access the files we created.
+
+To login as May, we run:
+```
+su -p may
+```
+We would be asked to provide our user password.
+
+![image](https://user-images.githubusercontent.com/49791498/107800514-23826180-6d5f-11eb-8f50-2eee50b2793b.png)
+
+*All we did in the picture above, is to login as May, print out the location of our home directory and then see the files in our home directory.*
+
+May is a member of ```group_a``` which means she should not be able to write to the file ```file_b```
+
+We run:
+```
+nano file_b
+```
+*This command opens up the file in the nano editor*.
+
+We write some texts on the file, but are unable to save the new changes to the file because as a member of group_a, we have no access to write to the file labeled ```file_b```
+![image](https://user-images.githubusercontent.com/49791498/107800946-bae7b480-6d5f-11eb-975e-32610613f015.png)
+
+There you have it folks!
+We have successfully assigned permissions to our group members.
