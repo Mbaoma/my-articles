@@ -1,6 +1,6 @@
 ## Managing Users, Groups and Permissions in Linux
 
-Hi, in today's article, we will be walking through the steps involved in setting up an Ubuntu virtual machine, creating users and groups and assigning specific permissions to the different groups.
+Hi, in today's article, we will be walking through the steps involved in setting up an Ubuntu virtual machine, creating users and groups, and assigning specific permissions to the different groups.
 
 [Users and groups](https://wiki.archlinux.org/index.php/users_and_groups) are created to control access to the system's files, directories etc. 
 
@@ -154,7 +154,7 @@ The above image shows us the permissions granted to our files
 
 ```r--``` means others have only read access to the file. 
 
-The column which contains ```1``, indicates the number of files in the directory(in our case, we are dealing with only one file)
+The column which contains ```1```, indicates the number of files in the directory(in our case, we are dealing with only one file)
 
 The column which contains ```azureuser``` shows the users while ```group_a``` shows the name of the group name that owns the file.
 
