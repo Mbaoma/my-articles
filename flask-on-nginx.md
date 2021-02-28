@@ -173,7 +173,7 @@ sudo nano /etc/nginx/sites-available/app
 ```
 server {
     listen 80;
-    server_name <your_ip_address>;
+    server_name <your_ip_address> <your_domain_name>;
 
     location / {
         include uwsgi_params;
@@ -198,6 +198,10 @@ in your browser, type in your VM IP address without adding a port becase in ngin
 
 tada!!
 ![image](https://user-images.githubusercontent.com/49791498/109413975-9ec75280-79b0-11eb-8859-0fa7096da98a.png)
+*IP address*
+
+![image](https://user-images.githubusercontent.com/49791498/109420276-d1357780-79d1-11eb-870a-4ee7a331b278.png)
+*Azure custom domain name*
 
 *cool thing is, anyone with your public IP address can access your webpage*
 
