@@ -1,3 +1,9 @@
+Hi there, today we will be looking at how to host a Flask app on Nginx and an Ubuntu Virtual Machine.
+
+[Nginx](https://nginx.org/en/docs/beginners_guide.html) is a webserver that can be used as reverse proxy, load balancer, mail proxy and HTTP Cache. It is widely used due to it's ability to scale webites better.
+A webserver is a computer that has web server software installed (Apache, Nginx, Microsoft IIS) and serves webpages over the internet.
+
+
 1 ssh into ubuntu VM
 2 i am using ubuntu 18.04 with python 3, so i run the following first
 sudo add-apt-repository universe
