@@ -1,14 +1,15 @@
 # Hosting Flask Apps on Nginx
 
-Hi there, today we will be looking at how to host a Flask app on Nginx (a webserver) and an Ubuntu Virtual Machine.
+Hi there, in this article, we would be looking at how to host a Flask app on Nginx (a webserver) on an Ubuntu Virtual Machine.
 
-[A webserver](https://en.wikipedia.org/wiki/Web_server) is a computer that has web server software installed (Apache, Nginx, Microsoft IIS) and serves webpages to fulfill client's requests over the internet. 
+[A webserver](https://en.wikipedia.org/wiki/Web_server) is a computer that has web server software installed (Apache, Nginx, Microsoft IIS) and serves resources, which could be webpages or multimedia files, over the web, to fulfill client's requests over the internet. 
 
 [Nginx](https://nginx.org/en/docs/beginners_guide.html) is a webserver that can be used as reverse proxy, load balancer, mail proxy and HTTP Cache. It is widely used due to it's ability to scale webites better.
 
-The first thing, we do is to [provision](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal) an Ubuntu Virtual Machine (I use Microsoft Azure) and then login to it via SSH.
+The first thing, we do is to provision an [Ubuntu Virtual Machine](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal) (I use Microsoft Azure) and then login to it via SSH.
 
-*(We assume we have a Flask application already built and on Github)*
+To follow along with this article, you are expected to have a flast application already built and in a git repository. If you don't, you could use [this](https://github.com/Mbaoma/landing-page)
+
 
 We then run the following command to update our repositories:
 ```
@@ -53,7 +54,7 @@ pip3 install uwsgi
 
 So far, so good!
 
-*   Step 5: Now, we check if our app runs on uwsgi, but first we have to set our Uncomplicated Fire Wall (ufw) to allow both incoming and outgoing connections on port 9090. 
+*   Step 5: Now, we check if our app runs on uwsgi, but first we have to set our Uncomplicated Fire Wall (ufw) to allow both incoming and outgoing connections on port 9090, the port we would be making use of. 
   
 ```
 sudo ufw enable
@@ -66,14 +67,14 @@ Expected result:
    
 *Running ```sudo ufw status``` shows us the current state of our firewall; whether it is active or not and the ports our firewall gives us access to.*
     
-*   Step 6: run,
+*   Step 6: run the following
 ```
 uwsgi dev.ini
 ```
 * You might see the following in the output:
 ![image](https://user-images.githubusercontent.com/49791498/109412657-8acc2280-79a9-11eb-8df8-7192e52c77b1.png)
 
-run, 
+run this, 
 ```
 sudo apt-get install libpcre3 libpcre3-dev
 pip3 install uwsgi -I --no-cache-dir
@@ -84,7 +85,7 @@ then re-run the command
 uwsgi dev.ini
 ```
 
-and in your browser type 
+In your browser visit 
 ```
 <vmipaddress>:9090/
 ```
@@ -110,7 +111,7 @@ To confirm if Nginx was properly installed, we type our VM's IP address in our b
 Expected result:
 ![image](https://user-images.githubusercontent.com/49791498/109413045-c1a33800-79ab-11eb-900f-8de337b31f7d.png)
 
-Omoshiroi......
+Omoshiroi...
 
 *   Step 9: we create systemd unit file to reboot the server running our app
 ```
