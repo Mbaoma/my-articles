@@ -1,7 +1,10 @@
-Hi there, today we will be looking at how to host a Flask app on Nginx and an Ubuntu Virtual Machine.
+# Hosting Flask Apps on Nginx
+
+Hi there, today we will be looking at how to host a Flask app on Nginx (a webserver) and an Ubuntu Virtual Machine.
+
+[A webserver](https://en.wikipedia.org/wiki/Web_server) is a computer that has web server software installed (Apache, Nginx, Microsoft IIS) and serves webpages to fulfill client's requests over the internet. 
 
 [Nginx](https://nginx.org/en/docs/beginners_guide.html) is a webserver that can be used as reverse proxy, load balancer, mail proxy and HTTP Cache. It is widely used due to it's ability to scale webites better.
-[A webserver](https://en.wikipedia.org/wiki/Web_server) is a computer that has web server software installed (Apache, Nginx, Microsoft IIS) and serves webpages to fulfill client's requests over the internet.
 
 The first thing, we do is to [provision](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal) an Ubuntu Virtual Machine (I use Microsoft Azure) and then login to it via SSH.
 
@@ -15,26 +18,27 @@ sudo apt update
 Dependig on the version of your Ubuntu VM, you might want to [upgrade](https://docs.python-guide.org/starting/install3/linux/) your Python version.
 After this, we continue with the steps below:
 
-*   We clone our app's GitHub repository into our VM:
+*   Step 1: We clone our app's GitHub repository into our VM:
 ```
 sudo apt update
 git clone <repo-url>
 ```
 
-*   We change our directory's name to ```app```
+*   Step 2: We change our directory's name to ```app```
 ```
 ls
 mv <repo-name>/ app
 ```
+*(The ls command is to list all the files and directories in our current work environment)*
 
-*   We cd into our directory, create a virtual environment and activate it
+*   Step 3: We cd into our directory, create a virtual environment and activate it
 ```
 sudo apt-get install python3-venv
 python3 -m venv <virtual-environment-name>
 source <virtual-environment-name>/bin/activate
 ```
     
-*   We install the requirements in our ```requirements.txt``` file
+*   Step 4: We install the requirements in our ```requirements.txt``` file
 ```
     pip3 install -r requirements.txt
 ```
@@ -49,7 +53,7 @@ pip3 install uwsgi
 
 So far, so good!
 
-Now, we check if our app runs on uwsgi, but first we have to set our Uncomplicated Fire Wall (ufw) to allow both incoming and outgoing connections on port 9090. 
+*   Step 5: Now, we check if our app runs on uwsgi, but first we have to set our Uncomplicated Fire Wall (ufw) to allow both incoming and outgoing connections on port 9090. 
   
 ```
 sudo ufw enable
@@ -62,7 +66,7 @@ Expected result:
    
 *Running ```sudo ufw status``` shows us the current state of our firewall; whether it is active or not and the ports our firewall gives us access to.*
     
-*   Now, we run:
+*   Step 6: run,
 ```
 uwsgi dev.ini
 ```
@@ -86,13 +90,13 @@ and in your browser type
 ```
 We expect to see our Flask app displayed via this port.
 
-*   Then we delete the firewall rule and deactivate our virtual environment
+*   Step 7: we delete the firewall rule and deactivate our virtual environment
 ```
 sudo ufw delete allow 9090
 deactivate
 ```
 
-*   We go ahead to install nginx by running:
+*   Step 8: install nginx
 ```
 sudo apt install Nginx
 ```
@@ -108,7 +112,7 @@ Expected result:
 
 Omoshiroi......
 
-*   Up next, we create systemd unit file to reboot the server running our app
+*   Step 9: we create systemd unit file to reboot the server running our app
 ```
 sudo nano /etc/systemd/system/<custom-name-of-service-app>.service
 ```
@@ -133,7 +137,7 @@ ExecStart=/home/<yourusername>/app/venv/bin/uwsgi --ini <name-of-app-ini file>
 WantedBy=multi-user.target
 ```
 
-*   We enable the service file we just created, by running:
+*   Step 10: we enable the service file we just created
 ```
 sudo systemctl start <name-of-app>
 sudo systemctl enable app <name-of-app>
@@ -149,7 +153,7 @@ sudo systemctl status app
 *Also if a mistake is made in our service file and we correct it, we have to reload the daemon and restart systemctl*
 ![image](https://user-images.githubusercontent.com/49791498/109413575-6fafe180-79ae-11eb-9ef5-9a29d239f77c.png)
 
-*   Now, we configure nginx by creating a config file
+*   Step 11: we configure nginx by creating a config file
 ```
 sudo nano /etc/nginx/sites-available/<name-of-file>
 ```
@@ -170,7 +174,7 @@ server {
 sudo nginx -t
 ![image](https://user-images.githubusercontent.com/49791498/109413763-6ecb7f80-79af-11eb-8d01-3c64664d7dfe.png)
 
-*   We link our config file to sites available:
+*   Step 12: we link our config file to sites available:
 ```
 sudo ln -s /<path-to-config-file>/<config-file-name> /etc/nginx/sites-enabled
 ```
@@ -181,7 +185,7 @@ sudo ln -s /etc/nginx/sites-available/app /etc/nginx/sites-enabled/
 
 *Running a syntax check at this point, comes in handy*
 
-*   We restart nginx for our changes to take effect
+*   Step 13: we restart nginx for our changes to take effect
 ```
 sudo systemctl restart nginx
 ```
@@ -193,6 +197,7 @@ tada!!
 
 ![image](https://user-images.githubusercontent.com/49791498/109420276-d1357780-79d1-11eb-870a-4ee7a331b278.png)
 *Azure custom domain name*
+
 
 *Feel free to share your IP address with friends to check out your app*
 
